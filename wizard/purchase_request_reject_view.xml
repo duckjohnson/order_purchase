@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_purchase_request_reject_form" model="ir.ui.view">
+            <field name="name">view_purchase_request_reject_form</field>
+            <field name="model">purchase.request.reject</field>
+            <field name="arch" type="xml">
+                <form string="Từ chối" editable="True">
+                    <group>
+                        <field name="reject_reason"/>
+                    </group>
+                    <footer>
+                        <button name="change_status_purchase" string="submit" type="object" class="btn-primary"/>
+                        <button string="cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="purchase_request_reject_act" model="ir.actions.act_window">
+            <field name="name">Từ chối</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.request.reject</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_purchase_request_reject_form"/>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

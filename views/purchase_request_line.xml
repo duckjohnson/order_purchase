@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_purchase_request_line_tree" model="ir.ui.view">
+            <field name="name">view_purchase_request_line_tree</field>
+            <field name="model">purchase.request.line</field>
+            <field name="arch" type="xml">
+                <tree string="Purchase request">
+                    <field name="product"/>
+                    <field name="unit_of_measure"/>
+                    <field name="request_quantity"/>
+                    <field name="estimated_unit_price"/>
+                    <field name="estimated_subtotal"/>
+                    <field name="delivered_quantity"/>
+                     <field name="date_request"/>
+                    <field name="note"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_purchase_request_line_form" model="ir.ui.view">
+            <field name="name">view_purchase_request_line_form</field>
+            <field name="model">purchase.request.line</field>
+            <field name="arch" type="xml">
+                <form string="Purchase request">
+                    <sheet>
+                        <group>
+                            <field name="product"/>
+                            <field name="unit_of_measure"/>
+                            <field name="request_quantity"/>
+                            <field name="estimated_unit_price"/>
+                            <field name="estimated_subtotal"/>
+                            <field name="delivered_quantity"/>
+                            <field name="date_request"/>
+                            <field name="description"/>
+                            <field name="note"/>
+                        </group>
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="purchase_request_line_act" model="ir.actions.act_window">
+            <field name="name">Purchase request line</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.request.line</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="purchase_request_line_menu" name="Purchase request line"
+                  parent="purchase_order_menu"
+                  action="purchase_request_line_act"
+                  sequence="1"
+        />
+    </data>
+</odoo>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_purchase_request_tree" model="ir.ui.view">
+            <field name="name">view_purchase_request_tree</field>
+            <field name="model">purchase.request</field>
+            <field name="arch" type="xml">
+                <tree string="Purchase request">
+                    <field name="name"/>
+                    <field name="requested_by"/>
+                    <field name="department_id"/>
+                    <field name="company_id"/>
+                    <field name="creation_date"/>
+                    <field name="due_date"/>
+                    <field name="approved_date" attrs="{'invisible': [('status','!=', 'approve')]}"/>
+                    <field name="cost_total"/>
+                    <field name="status"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_purchase_request_form" model="ir.ui.view">
+            <field name="name">view_purchase_request_form</field>
+            <field name="model">purchase.request</field>
+            <field name="arch" type="xml">
+                <form string="Purchase request">
+                    <header>
+                        <button name="print_export_excel" type="object" string="Export" class="oe_highlight"/>
+                        <button name="%(order_purchase.purchase_request_import_act)d" type="action"
+                                string="Import" class="oe_highlight"/>
+                        <button name="print_report" type="object" string="Print" class="oe_highlight"/>
+                        <field name="status" widget="statusbar"
+                               statusbar_visible="draft,pending,approve,finish,reject,cancel"
+                               clickable="0"/>
+                    </header>
+                    <sheet>
+                        <header>
+                            <button name="action_request_approval" type="object"
+                                    string="Gửi duyệt" attrs="{'invisible': [('status','!=', 'draft')]}"
+                                    class="oe_highlight"/>
+                            <button name="action_approve" type="object"
+                                    string="Phê duyệt" attrs="{'invisible': [('status','!=', 'pending')]}"
+                                    class="oe_highlight"/>
+                            <button name="%(order_purchase.purchase_request_reject_act)d" type="action"
+                                    string="Từ chối" attrs="{'invisible': [('status','!=', 'pending')]}"
+                                    class="oe_highlight"/>
+                            <button name="action_done" type="object"
+                                    string="Hoàn thành" attrs="{'invisible': [('status','!=', 'approve')]}"
+                                    class="oe_highlight"/>
+                            <button name="action_cancel" type="object"
+                                    string="Hủy" attrs="{'invisible': [('status','!=', 'approve')]}"
+                                    class="oe_highlight"/>
+                            <button name="action_back_to_draft" type="object"
+                                    string="Chuyển về dự thảo"
+                                    attrs="{'invisible': [('status','!=', 'cancel'),('status','!=', 'reject')]}"
+                                    class="oe_highlight"/>
+                        </header>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="requested_by"
+                                       attrs="{'readonly': ['|','|',('status','=', 'pending'),('status','=', 'approve'),('status','=', 'finish')]}"/>
+                                <field name="department_id"
+                                       attrs="{'readonly': ['|','|',('status','=', 'pending'),('status','=', 'approve'),('status','=', 'finish')]}"/>
+                                <field name="cost_total"/>
+                            </group>
+                            <group>
+                                <field name="creation_date"
+                                       attrs="{'readonly': ['|','|',('status','=', 'pending'),('status','=', 'approve'),('status','=', 'finish')]}"/>
+                                <field name="due_date"
+                                       attrs="{'readonly': ['|','|',('status','=', 'pending'),('status','=', 'approve'),('status','=', 'finish')]}"/>
+                                <field name="approved_date" attrs="{'invisible': [('status','!=', 'approve')]}"/>
+                                <field name="company_id"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="request_line_ids" string="Chi Tiết">
+                                <field name="request_line_ids"
+                                       attrs="{'readonly': ['|','|',('status','=', 'pending'),('status','=', 'approve'),('status','=', 'finish')]}"/>
+                            </page>
+                        </notebook>
+                        <label for="reject_reason" string="Lý do từ chối"
+                               attrs="{'invisible': [('status','!=', 'reject')]}"/>
+                        <field name="reject_reason" attrs="{'invisible': [('status','!=', 'reject')]}"/>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="purchase_request_act" model="ir.actions.act_window">
+            <field name="name">Purchase request</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.request</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="purchase_order_menu" name="Purchase order" groups="order_purchase.group_order_purchase_admin"
+                  sequence="1"
+        >
+            <menuitem id="purchase_request_menu" name="Purchase request"
+                      action="purchase_request_act"
+                      sequence="1"
+            />
+        </menuitem>
+
+    </data>
+</odoo>

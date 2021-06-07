@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+            id="purchase_request_line_xlsx"
+            model="purchase.request"
+            string="Print XLSX"
+            report_type="xlsx"
+            name="purchase.request.line.xls"
+    />
+    <report
+            id="report_purchase_card"
+            string="Perchase request pdf"
+            model="purchase.request"
+            report_type="qweb-html"
+            name="order_purchase.report_purchase_request"
+            file="order_purchase.report_purchase_request"
+    />
+</odoo>

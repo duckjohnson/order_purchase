@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_purchase_request">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                     <link rel="stylesheet" href="/order_purchase/static/src/style.css"/>
+                    <h3>Công ty:
+                        <t t-esc="doc.company_id.name"/>
+                    </h3>
+                    <br/>
+                    <h2 style="text-align: center;">Phiếu yêu cầu mua hàng
+                    </h2>
+                    <h4 style="text-align: center;">Mã phiếu: <span t-esc="doc.name"/></h4>
+                    <br/>
+                    <div>
+                        <h4>Người yêu cầu:
+                            <t t-esc="doc.requested_by.name"/>
+                        </h4>
+                        <h4>Ngày yêu cầu:
+                            <t t-esc="doc.creation_date.strftime('%d/%m/%Y')"/>
+                        </h4>
+                    </div>
+
+                    <table style="width: 100%;">
+                        <tr>
+                            <th>STT</th>
+                            <th>Mã SP</th>
+                            <th>Tên sp</th>
+                            <th>Đơn vị tính</th>
+                            <th>SL yêu cầu</th>
+                            <th>Ghi chú</th>
+                        </tr>
+                        <t t-foreach="doc.request_line_ids" t-as="d">
+                            <tr>
+                                <td>
+                                    <t t-="d.id"/>
+                                </td>
+                                <td>
+                                    <t t-esc="d.product.id"/>
+                                </td>
+                                <td>
+                                    <t t-esc="d.product.name"/>
+                                </td>
+                                <td>
+                                    <t t-esc="d.unit_of_measure"/>
+                                </td>
+                                <td>
+                                    <t t-esc="d.request_quantity"/>
+                                </td>
+                                <td>
+                                    <t t-esc="d.note"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </table>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

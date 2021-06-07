@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_purchase_reject_reason_tree" model="ir.ui.view">
+            <field name="name">view_purchase_reject_reason_tree</field>
+            <field name="model">purchase.reject.reason</field>
+            <field name="arch" type="xml">
+                <tree string="Reject reason">
+                    <field name="date"/>
+                    <field name="reason"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_purchase_reject_reason_form" model="ir.ui.view">
+            <field name="name">view_purchase_reject_reason_form</field>
+            <field name="model">purchase.reject.reason</field>
+            <field name="arch" type="xml">
+                <form string="Reject reason">
+                    <sheet>
+                        <group>
+                            <field name="date"/>
+                            <field name="reason"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="purchase_reject_reason_act" model="ir.actions.act_window">
+            <field name="name">Reject reason</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.reject.reason</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="purchase_reject_reason_menu" name="Reject reason"
+                  parent="purchase_order_menu"
+                  action="purchase_reject_reason_act"
+                  sequence="1"
+        />
+    </data>
+</odoo>
